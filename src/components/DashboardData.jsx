@@ -44,8 +44,9 @@ const DashboardData = () => {
         throw new Error(`Erro na API: ${dashboardResponse.status}`);
       }
 
-      const data = await dashboardResponse.json();
-      setDashboardData(data);
+      const jsonResponse = await dashboardResponse.json();
+
+      setDashboardData(jsonResponse.data);
       setLastUpdated(new Date());
     } catch (err) {
       setError(err.message);
