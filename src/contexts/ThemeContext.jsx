@@ -14,15 +14,28 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
+    const handleSystemThemeChange = (e) => {
+      setTheme(e.matches ? 'dark' : 'light');
+    };
+
+    const prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
     // Verificar se há tema salvo no localStorage
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      // Verificar preferência do sistema
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
+      // Definir tema inicial com base na preferência do sistema
+      setTheme(prefersDarkQuery.matches ? 'dark' : 'light');
     }
+
+    // Adicionar listener para mudanças na preferência do sistema
+    prefersDarkQuery.addEventListener('change', handleSystemThemeChange);
+
+    // Limpar o listener ao desmontar o componente
+    return () => {
+      prefersDarkQuery.removeEventListener('change', handleSystemThemeChange);
+    };
   }, []);
 
   useEffect(() => {
