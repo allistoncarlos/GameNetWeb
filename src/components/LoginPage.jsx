@@ -41,7 +41,7 @@ const LoginPage = ({ onLoginSuccess }) => {
 
       if (response.ok) {
         // Login bem-sucedido
-        localStorage.setItem('authToken', data.token || 'authenticated');
+        localStorage.setItem('authToken', data.access_token || 'authenticated');
         localStorage.setItem('user', JSON.stringify(data.user || { username: formData.username }));
         
         if (onLoginSuccess) {

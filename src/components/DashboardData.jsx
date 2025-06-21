@@ -12,24 +12,11 @@ const DashboardData = () => {
     setError(null);
     
     try {
-      // Primeiro, obter o token de autenticação usando as credenciais do Postman
-      const tokenResponse = await fetch('https://gamenet.azurewebsites.net/api/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: 'manus-ai',
-          password: 'Aa.7628143'
-        })
-      });
+      const token = localStorage.getItem('authToken');
 
-      if (!tokenResponse.ok) {
-        throw new Error('Falha na autenticação');
+      if (!token) {
+        throw new Error('Token de autenticação não encontrado. Faça login novamente.');
       }
-
-      const tokenData = await tokenResponse.json();
-      const token = tokenData.access_token;
 
       // Agora fazer a chamada para o dashboard
       const dashboardResponse = await fetch('https://gamenet.azurewebsites.net/api/dashboard', {
