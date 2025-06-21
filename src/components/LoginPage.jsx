@@ -78,7 +78,7 @@ const LoginPage = ({ onLoginSuccess }) => {
           <div className="space-y-4">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Usuário Manus
+                Usuário
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
