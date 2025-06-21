@@ -22,7 +22,7 @@ import {
   BarChart3
 } from 'lucide-react';
 
-const PlataformaPage = () => {
+const PlatformPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
   // Dados mock do sistema
@@ -121,7 +121,7 @@ const PlataformaPage = () => {
   ];
 
   return (
-    <Layout title="Plataforma" subtitle="Configurações e Monitoramento">
+    <Layout title="Platform" subtitle="Configuration and Monitoring">
       {/* Navegação por abas */}
       <div className="row mb-4">
         <div className="col-12">
@@ -531,5 +531,5 @@ const PlataformaPage = () => {
   );
 };
 
-export default PlataformaPage;
+export default PlatformPage;
 

@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { LogOut } from 'lucide-react';
 
 // Componentes
 import LoginPage from './components/LoginPage';
 import NavigationMenu from './components/NavigationMenu';
-import Navbar from './components/Navbar';
 
 // Páginas
 import DashboardPage from './pages/DashboardPage';
 import GamesPage from './pages/GamesPage';
-import PlataformaPage from './pages/PlataformaPage';
-import ListasPage from './pages/ListasPage';
+import PlatformPage from './pages/PlatformPage';
+import ListsPage from './pages/ListsPage';
 
 import './App.css';
 
@@ -38,13 +36,6 @@ function App() {
     setUser(data.user || { username: data.username || 'Usuário' });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
-    setIsAuthenticated(false);
-    setUser(null);
-  };
-
   // Mostrar loading enquanto verifica autenticação
   if (isLoading) {
     return (
@@ -65,28 +56,13 @@ function App() {
     );
   }
 
-  // Layout principal com roteamento
+  // Layout principal com roteamento - APENAS UM MENU
   return (
     <ThemeProvider>
       <Router>
         <div className="page">
-          {/* Navbar principal */}
-          <Navbar onMenuClick={() => {}} />
-          
-          {/* Menu de navegação */}
+          {/* Menu de navegação único - inclui header e navegação */}
           <NavigationMenu />
-          
-          {/* Botão de logout fixo */}
-          <div className="position-fixed top-0 end-0 m-3" style={{ zIndex: 1050 }}>
-            <button
-              onClick={handleLogout}
-              className="btn btn-outline-danger btn-sm d-flex align-items-center"
-              title="Sair do sistema"
-            >
-              <LogOut size={16} className="me-2" />
-              Sair
-            </button>
-          </div>
           
           {/* Conteúdo das páginas */}
           <div className="page-wrapper">
@@ -97,11 +73,11 @@ function App() {
               {/* Rotas das páginas */}
               <Route 
                 path="/dashboard" 
-                element={<DashboardPage user={user} onLogout={handleLogout} />} 
+                element={<DashboardPage user={user} />} 
               />
               <Route path="/games" element={<GamesPage />} />
-              <Route path="/plataforma" element={<PlataformaPage />} />
-              <Route path="/listas" element={<ListasPage />} />
+              <Route path="/platform" element={<PlatformPage />} />
+              <Route path="/lists" element={<ListsPage />} />
               
               {/* Rota catch-all para páginas não encontradas */}
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
@@ -115,13 +91,13 @@ function App() {
                 <div className="col-lg-auto ms-lg-auto">
                   <ul className="list-inline list-inline-dots mb-0">
                     <li className="list-inline-item">
-                      <a href="#" className="link-secondary">Documentação</a>
+                      <a href="#" className="link-secondary">Documentation</a>
                     </li>
                     <li className="list-inline-item">
-                      <a href="#" className="link-secondary">Licença</a>
+                      <a href="#" className="link-secondary">License</a>
                     </li>
                     <li className="list-inline-item">
-                      <a href="#" className="link-secondary">Código Fonte</a>
+                      <a href="#" className="link-secondary">Source Code</a>
                     </li>
                   </ul>
                 </div>
@@ -130,7 +106,7 @@ function App() {
                     <li className="list-inline-item">
                       Copyright © 2024
                       <a href="#" className="link-secondary">GameNet Platform</a>.
-                      Todos os direitos reservados.
+                      All rights reserved.
                     </li>
                   </ul>
                 </div>

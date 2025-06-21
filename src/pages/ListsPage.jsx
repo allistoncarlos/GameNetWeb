@@ -20,7 +20,7 @@ import {
   Archive
 } from 'lucide-react';
 
-const ListasPage = () => {
+const ListsPage = () => {
   const [listas, setListas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -181,7 +181,7 @@ const ListasPage = () => {
 
   if (loading) {
     return (
-      <Layout title="Listas" subtitle="Gerenciamento de Listas">
+      <Layout title="Lists" subtitle="List Management">
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '400px' }}>
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Carregando...</span>
@@ -192,7 +192,7 @@ const ListasPage = () => {
   }
 
   return (
-    <Layout title="Listas" subtitle="Gerenciamento de Listas">
+    <Layout title="Lists" subtitle="List Management">
       {/* Header com ações */}
       <div className="row mb-4">
         <div className="col-md-8">
@@ -480,5 +480,5 @@ const ListasPage = () => {
   );
 };
 
-export default ListasPage;
+export default ListsPage;
 
