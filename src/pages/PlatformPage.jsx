@@ -162,24 +162,32 @@ const PlatformPage = () => {
 
         {/* Search bar */}
         <div className="row mb-4">
-          <div className="col-md-6">
-            <div className="input-group">
-              <span className="input-group-text">
-                <Search size={16} />
-              </span>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search platforms..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+          <div className="col-12">
+            <div className="card">
+              <div className="card-body">
+                <div className="row g-3 align-items-center">
+                  <div className="col">
+                    <div className="input-icon">
+                      <span className="input-icon-addon">
+                        <Search size={16} />
+                      </span>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search platforms by name, description or status..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-auto">
+                    <span className="text-muted">
+                      {filteredPlatforms.length} of {platforms.length} platforms
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="col-md-6 text-md-end">
-            <span className="text-muted">
-              {filteredPlatforms.length} of {platforms.length} platforms
-            </span>
           </div>
         </div>
 
