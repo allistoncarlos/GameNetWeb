@@ -187,7 +187,7 @@ const PlatformPage = () => {
         ) : (
           <div className="row row-cards">
             {filteredPlatforms.map((platform, index) => (
-              <div key={platform.id || index} className="col-sm-6 col-lg-4">
+              <div key={platform.id || index} className="col-12 col-md-6 col-lg-4">
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex align-items-center mb-3">
@@ -256,7 +256,7 @@ const PlatformPage = () => {
               <div className="card">
                 <div className="card-body">
                   <div className="row">
-                    <div className="col-sm-6 col-lg-3">
+                    <div className="col-12 col-sm-6 col-lg-3">
                       <div className="d-flex align-items-center">
                         <div className="me-3">
                           <div className="bg-primary-lt p-2 rounded">
@@ -269,7 +269,7 @@ const PlatformPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-sm-6 col-lg-3">
+                    <div className="col-12 col-sm-6 col-lg-3">
                       <div className="d-flex align-items-center">
                         <div className="me-3">
                           <div className="bg-success-lt p-2 rounded">
@@ -284,7 +284,7 @@ const PlatformPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-sm-6 col-lg-3">
+                    <div className="col-12 col-sm-6 col-lg-3">
                       <div className="d-flex align-items-center">
                         <div className="me-3">
                           <div className="bg-danger-lt p-2 rounded">
@@ -299,7 +299,7 @@ const PlatformPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-sm-6 col-lg-3">
+                    <div className="col-12 col-sm-6 col-lg-3">
                       <div className="d-flex align-items-center">
                         <div className="me-3">
                           <div className="bg-info-lt p-2 rounded">
