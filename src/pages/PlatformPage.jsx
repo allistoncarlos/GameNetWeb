@@ -163,17 +163,17 @@ const PlatformPage = () => {
         {/* Search bar */}
         <div className="row mb-4">
           <div className="col-12">
-            <div className="card">
+            <div className="card card-sm">
               <div className="card-body">
-                <div className="row g-3 align-items-center">
+                <div className="row g-2 align-items-center">
                   <div className="col">
                     <div className="input-icon">
                       <span className="input-icon-addon">
-                        <Search size={16} />
+                        <Search size={18} />
                       </span>
                       <input
                         type="text"
-                        className="form-control"
+                        className="form-control form-control-lg"
                         placeholder="Search platforms by name, description or status..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -181,9 +181,9 @@ const PlatformPage = () => {
                     </div>
                   </div>
                   <div className="col-auto">
-                    <span className="text-muted">
-                      {filteredPlatforms.length} of {platforms.length} platforms
-                    </span>
+                    <div className="badge bg-blue-lt text-blue">
+                      {filteredPlatforms.length} of {platforms.length}
+                    </div>
                   </div>
                 </div>
               </div>
