@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Layout from './components/Layout';
-import Card from './components/Card';
-import StatCard from './components/StatCard';
-import LoginPage from './components/LoginPage';
-import DashboardData from './components/DashboardData';
-import IOSDashboard from './components/IOSDashboard';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { Users, ShoppingCart, DollarSign, Activity, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
+
+// Componentes
+import LoginPage from './components/LoginPage';
+import NavigationMenu from './components/NavigationMenu';
+import Navbar from './components/Navbar';
+
+// Páginas
+import DashboardPage from './pages/DashboardPage';
+import GamesPage from './pages/GamesPage';
+import PlataformaPage from './pages/PlataformaPage';
+import ListasPage from './pages/ListasPage';
+
 import './App.css';
 
 function App() {
@@ -58,180 +65,80 @@ function App() {
     );
   }
 
-  // Se estiver autenticado, mostrar dashboard
+  // Layout principal com roteamento
   return (
     <ThemeProvider>
-      <Layout title="Dashboard" subtitle="Visão Geral">
-        {/* Botão de logout no header */}
-        <div className="mb-4 flex justify-between items-center">
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-              Bem-vindo, {user?.username || user?.name || 'Usuário'}!
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Você está logado no sistema
-            </p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Sair
-          </button>
-        </div>
-
-        {/* Dados da API Dashboard */}
-        <div className="mb-6">
-          <DashboardData />
-        </div>
-
-        {/* Estatísticas principais */}
-        <div className="row row-deck row-cards mb-4">
-          <div className="col-sm-6 col-lg-3">
-            <StatCard
-              title="Total de Usuários"
-              value="2,986"
-              change="+4%"
-              changeType="positive"
-              icon={Users}
-              color="primary"
-              subtitle="Últimos 7 dias"
-            />
-          </div>
-          <div className="col-sm-6 col-lg-3">
-            <StatCard
-              title="Vendas"
-              value="75%"
-              change="+7%"
-              changeType="positive"
-              icon={ShoppingCart}
-              color="success"
-              subtitle="Taxa de conversão"
-            />
-          </div>
-          <div className="col-sm-6 col-lg-3">
-            <StatCard
-              title="Receita"
-              value="$4,300"
-              change="+8%"
-              changeType="positive"
-              icon={DollarSign}
-              color="warning"
-              subtitle="Últimos 7 dias"
-            />
-          </div>
-          <div className="col-sm-6 col-lg-3">
-            <StatCard
-              title="Novos Clientes"
-              value="6,782"
-              change="-1%"
-              changeType="negative"
-              icon={Activity}
-              color="info"
-              subtitle="Últimos 7 dias"
-            />
-          </div>
-        </div>
-
-        {/* Cards de conteúdo */}
-        <div className="row row-deck row-cards">
-          <div className="col-md-6 col-lg-4">
-            <Card
-              title="Modo Escuro Implementado"
-              subtitle="Funcionalidade Completa"
-              status="success"
-              statusPosition="top"
+      <Router>
+        <div className="page">
+          {/* Navbar principal */}
+          <Navbar onMenuClick={() => {}} />
+          
+          {/* Menu de navegação */}
+          <NavigationMenu />
+          
+          {/* Botão de logout fixo */}
+          <div className="position-fixed top-0 end-0 m-3" style={{ zIndex: 1050 }}>
+            <button
+              onClick={handleLogout}
+              className="btn btn-outline-danger btn-sm d-flex align-items-center"
+              title="Sair do sistema"
             >
-              <p>O modo escuro foi implementado com sucesso! Agora você pode alternar entre os temas claro e escuro.</p>
-              <p className="text-muted text-sm mt-2">
-                <strong>Funcionalidades:</strong> Toggle automático, persistência de preferência, detecção do sistema
-              </p>
-              <div className="mt-3">
-                <span className="badge bg-success">✓ Modo Escuro Ativo</span>
-              </div>
-            </Card>
+              <LogOut size={16} className="me-2" />
+              Sair
+            </button>
           </div>
           
-          <div className="col-md-6 col-lg-4">
-            <Card
-              title="Recursos de Tema"
-              ribbon="NOVO"
-              ribbonColor="blue"
-            >
-              <ul className="list-unstyled">
-                <li>🌙 Modo escuro completo</li>
-                <li>☀️ Modo claro padrão</li>
-                <li>🔄 Toggle no navbar</li>
-                <li>💾 Persistência de preferência</li>
-                <li>🖥️ Detecção automática do sistema</li>
-              </ul>
-            </Card>
+          {/* Conteúdo das páginas */}
+          <div className="page-wrapper">
+            <Routes>
+              {/* Rota padrão redireciona para dashboard */}
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              
+              {/* Rotas das páginas */}
+              <Route 
+                path="/dashboard" 
+                element={<DashboardPage user={user} onLogout={handleLogout} />} 
+              />
+              <Route path="/games" element={<GamesPage />} />
+              <Route path="/plataforma" element={<PlataformaPage />} />
+              <Route path="/listas" element={<ListasPage />} />
+              
+              {/* Rota catch-all para páginas não encontradas */}
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
           </div>
           
-          <div className="col-md-6 col-lg-4">
-            <Card
-              title="Sistema Completo"
-              footer={
-                <div className="d-flex">
-                  <button 
-                    onClick={handleLogout}
-                    className="btn btn-outline-primary"
-                  >
-                    Testar Logout
-                  </button>
-                </div>
-              }
-            >
-              <p>Sistema completo com:</p>
-              <ol>
-                <li>✅ Login com API</li>
-                <li>✅ Modo escuro/claro</li>
-                <li>✅ Dashboard responsivo</li>
-                <li>✅ Persistência de dados</li>
-              </ol>
-            </Card>
-          </div>
-          
-          <div className="col-12">
-            <Card
-              title="Dashboard com Modo Escuro"
-              subtitle="Experiência completa de usuário"
-              active={true}
-            >
-              <div className="row">
-                <div className="col-md-6">
-                  <h4>Funcionalidades Implementadas</h4>
-                  <p>Este dashboard agora possui modo escuro completo que:</p>
-                  <ul>
-                    <li>Alterna automaticamente entre temas</li>
-                    <li>Salva a preferência do usuário</li>
-                    <li>Detecta preferência do sistema</li>
-                    <li>Aplica tema em todos os componentes</li>
+          {/* Footer */}
+          <footer className="footer footer-transparent d-print-none">
+            <div className="container-xl">
+              <div className="row text-center align-items-center flex-row-reverse">
+                <div className="col-lg-auto ms-lg-auto">
+                  <ul className="list-inline list-inline-dots mb-0">
+                    <li className="list-inline-item">
+                      <a href="#" className="link-secondary">Documentação</a>
+                    </li>
+                    <li className="list-inline-item">
+                      <a href="#" className="link-secondary">Licença</a>
+                    </li>
+                    <li className="list-inline-item">
+                      <a href="#" className="link-secondary">Código Fonte</a>
+                    </li>
                   </ul>
                 </div>
-                <div className="col-md-6">
-                  <h4>Tecnologias Utilizadas</h4>
-                  <div className="row g-2">
-                    <div className="col-6">
-                      <span className="badge bg-primary me-1">React Context</span>
-                    </div>
-                    <div className="col-6">
-                      <span className="badge bg-success me-1">Tailwind Dark Mode</span>
-                    </div>
-                    <div className="col-6">
-                      <span className="badge bg-info me-1">LocalStorage</span>
-                    </div>
-                    <div className="col-6">
-                      <span className="badge bg-warning me-1">System Detection</span>
-                    </div>
-                  </div>
+                <div className="col-12 col-lg-auto mt-3 mt-lg-0">
+                  <ul className="list-inline list-inline-dots mb-0">
+                    <li className="list-inline-item">
+                      Copyright © 2024
+                      <a href="#" className="link-secondary">GameNet Platform</a>.
+                      Todos os direitos reservados.
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </Card>
-          </div>
+            </div>
+          </footer>
         </div>
-      </Layout>
+      </Router>
     </ThemeProvider>
   );
 }

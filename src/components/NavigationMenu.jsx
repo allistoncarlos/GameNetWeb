@@ -1,0 +1,83 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { 
+  LayoutDashboard, 
+  Gamepad2, 
+  Monitor, 
+  List,
+  ChevronRight 
+} from 'lucide-react';
+
+const NavigationMenu = () => {
+  const location = useLocation();
+
+  const menuItems = [
+    {
+      path: '/dashboard',
+      label: 'Dashboard',
+      icon: LayoutDashboard,
+      description: 'Visão geral do sistema'
+    },
+    {
+      path: '/games',
+      label: 'Games',
+      icon: Gamepad2,
+      description: 'Gerenciar jogos'
+    },
+    {
+      path: '/plataforma',
+      label: 'Plataforma',
+      icon: Monitor,
+      description: 'Configurações da plataforma'
+    },
+    {
+      path: '/listas',
+      label: 'Listas',
+      icon: List,
+      description: 'Gerenciar listas'
+    }
+  ];
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
+  return (
+    <nav className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+      <div className="container-xl">
+        <div className="row">
+          <div className="col-12">
+            <div className="navbar-nav flex-row">
+              {menuItems.map((item) => {
+                const Icon = item.icon;
+                const active = isActive(item.path);
+                
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`nav-link d-flex align-items-center px-3 py-2 me-2 rounded-md transition-colors ${
+                      active
+                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                    }`}
+                    title={item.description}
+                  >
+                    <Icon size={18} className="me-2" />
+                    <span className="fw-medium">{item.label}</span>
+                    {active && (
+                      <ChevronRight size={14} className="ms-auto opacity-60" />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default NavigationMenu;
+
