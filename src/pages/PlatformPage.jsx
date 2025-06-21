@@ -32,7 +32,17 @@ const PlatformPage = () => {
         }
 
         const data = await response.json();
-        setPlatforms(Array.isArray(data) ? data : []);
+        const jsonResponse = data;
+        const platformsData = Array.isArray(jsonResponse.data.result) ? jsonResponse.data.result : [];
+        
+        // Ordenar por nome de plataforma
+        const sortedPlatforms = platformsData.sort((a, b) => {
+          const nameA = (a.name || '').toLowerCase();
+          const nameB = (b.name || '').toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        
+        setPlatforms(sortedPlatforms);
       } catch (err) {
         setError(err.message);
         console.error('Erro ao buscar plataformas:', err);
