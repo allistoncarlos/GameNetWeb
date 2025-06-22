@@ -17,7 +17,7 @@ const GamesPage = () => {
       setLoading(true);
       setError(null);
       
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('authToken');
       if (!token) {
         throw new Error('Token de autenticação não encontrado');
       }
@@ -157,7 +157,7 @@ const GamesPage = () => {
                   <div className="card card-sm">
                     <div className="card-img-top" style={{ height: '200px', position: 'relative', overflow: 'hidden' }}>
                       <img
-                        src={game.coverUrl || game.imageUrl}
+                        src={game.gameCoverURL}
                         alt={game.name}
                         style={{
                           width: '100%',
@@ -178,7 +178,7 @@ const GamesPage = () => {
                           borderRadius: '4px 4px 0 0'
                         }}
                       >
-                        <Image size={32} className="text-muted" />
+                        
                       </div>
                     </div>
                     <div className="card-body p-2">
